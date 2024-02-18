@@ -1,7 +1,6 @@
 import type { HttpContext } from '@adonisjs/core/http'
-
+import mail from '@adonisjs/mail/services/main'
 import User from '../models/user.ts'
-
 import { createUserValidator } from '#validators/user_validator'
 
 export default class UsersController {
@@ -10,11 +9,12 @@ export default class UsersController {
    */
   async index({ response }: HttpContext) {
     try {
-      const users = await User.query().select('*').from('users')
+      const user = await User.query().select('*').from('users')
+
       return response.json({
         success: true,
         message: 'Users fetched successfully',
-        data: users,
+        data: user,
       })
     } catch (error) {
       return response.json({
@@ -34,6 +34,17 @@ export default class UsersController {
       // const payload = await createUserValidator.validate(data)
       const payload = await request.validateUsing(createUserValidator)
       const userData = await User.create(payload)
+
+      const emailResponse = await mail.send((message) => {
+        message
+          .to(payload.email)
+          .from('guruthewalker@gmail.com')
+          .subject('Verify your email address')
+          .htmlView('emails/verify_email', { payload })
+      })
+
+      console.log('emailResponse', emailResponse)
+
       return response.json({
         success: true,
         message: 'User created successfully',
