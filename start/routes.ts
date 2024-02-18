@@ -28,6 +28,8 @@ router
       .group(() => {
         router.get('', [UsersController, 'index'])
         router.get('/:id', [UsersController, 'show'])
+        router.post('', [UsersController, 'create'])
+        router.delete('/:id', [UsersController, 'destroy'])
       })
       .prefix('users')
   })
