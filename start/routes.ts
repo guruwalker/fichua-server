@@ -62,5 +62,3 @@ router
       guards: ['api'],
     })
   )
-// .use(middleware.auth({ guards: ['api'] }))
-// .use(middleware.auth())

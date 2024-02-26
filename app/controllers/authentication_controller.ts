@@ -51,23 +51,23 @@ export default class AuthenticationController {
   async login({ request, auth, response }: HttpContext) {
     try {
       const { email, password } = request.only(['email', 'password'])
-      const user = await User.verifyCredentials(email, password)
       // authenticate
-      // await auth.use('api').login(user)
-      // const user1 = await auth.authenticate()
-      // const user = await auth.authenticateUsing('api')
-
+      const user = await User.verifyCredentials(email, password)
       // assign token
       const token = await User.accessTokens.create(user)
-      console.log('token', token)
-      // console.log('user1', user1)
 
       return response.json({
         success: true,
         message: 'User logged in successfully',
         data: {
-          user,
-          token,
+          user: {
+            id: user.id,
+            email: user.email,
+            role: user.role,
+            fullName: user.fullName,
+            nationalID: user.nationalID,
+          },
+          token: token.value!.release(),
         },
       })
     } catch (error) {
