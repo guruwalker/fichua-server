@@ -1,11 +1,13 @@
 import type { HttpContext } from '@adonisjs/core/http'
 import mail from '@adonisjs/mail/services/main'
 import User from '../models/user.ts'
-import { createUserValidator } from '#validators/user_validator'
+import { updateUserValidator } from '#validators/user_validator'
 
 export default class UsersController {
   /**
-   * Display a list of resource
+   * *
+   * Get all users
+   * *
    */
   async index({ response }: HttpContext) {
     try {
@@ -26,50 +28,9 @@ export default class UsersController {
   }
 
   /**
-   * Display form to create a new record
-   */
-  async create({ request, response }: HttpContext) {
-    try {
-      // const data = request.all()
-      // const payload = await createUserValidator.validate(data)
-      const payload = await request.validateUsing(createUserValidator)
-      const userData = await User.create(payload)
-
-      const emailResponse = await mail.send((message) => {
-        message
-          .to(payload.email)
-          .from('guruthewalker@gmail.com')
-          .subject('Verify your email address')
-          .htmlView('emails/verify_email', { payload })
-      })
-
-      console.log('emailResponse', emailResponse)
-
-      return response.json({
-        success: true,
-        message: 'User created successfully',
-        data: userData,
-      })
-    } catch (error) {
-      if (error.code === 'ER_DUP_ENTRY') {
-        // Duplicate entry error
-        return response.status(400).json({
-          success: false,
-          message: 'User already exists',
-          data: null,
-          code: 'ER_DUP_ENTRY',
-        })
-      }
-      return response.json({
-        success: false,
-        message: error.message,
-        data: error,
-      })
-    }
-  }
-
-  /**
-   * Show individual record
+   * *
+   * Get single user
+   * *
    */
   async show({ params, response }: HttpContext) {
     try {
@@ -89,12 +50,35 @@ export default class UsersController {
   }
 
   /**
-   * Handle form submission for the edit action
+   * *
+   * Update single user
+   * *
    */
-  // async update({ params, request }: HttpContext) {}
+  async update({ params, request, response }: HttpContext) {
+    try {
+      const payload = await request.validateUsing(updateUserValidator)
+      const user = await User.findByOrFail('id', params.id)
+      user.merge(payload)
+      await user.save()
+
+      return response.json({
+        success: true,
+        message: 'User updated successfully!',
+        data: user,
+      })
+    } catch (error) {
+      return response.json({
+        success: false,
+        message: 'Error updating user:',
+        data: error.message || 'Unknown error',
+      })
+    }
+  }
 
   /**
-   * Delete record
+   * *
+   * Delete single user
+   * *
    */
   async destroy({ params, response }: HttpContext) {
     try {
