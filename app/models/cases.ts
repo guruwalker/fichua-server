@@ -1,6 +1,7 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column } from '@adonisjs/lucid/orm'
-
+import type { BelongsTo } from '@adonisjs/lucid/types/relations'
+import { BaseModel, column, belongsTo } from '@adonisjs/lucid/orm'
+import User from '../models/user.ts'
 export default class Cases extends BaseModel {
   @column({ isPrimary: true })
   declare id: number
@@ -9,7 +10,7 @@ export default class Cases extends BaseModel {
   declare case_uuid: string | number
 
   @column({ serializeAs: 'reported_by' })
-  declare reported_by: string
+  declare reported_by: number
 
   @column({ serializeAs: 'crime_type' })
   declare crime_type: string
@@ -24,7 +25,7 @@ export default class Cases extends BaseModel {
   declare status: string
 
   @column({ serializeAs: 'assigned_officer' })
-  declare assigned_officer: string
+  declare assigned_officer: number
 
   @column()
   declare attachments: string
@@ -40,4 +41,8 @@ export default class Cases extends BaseModel {
 
   @column.dateTime({ autoCreate: true, autoUpdate: true, serializeAs: 'updated_at' })
   declare updated_at: DateTime | null
+
+  // Reported by relation
+  @belongsTo(() => User)
+  declare user: BelongsTo<typeof User>
 }

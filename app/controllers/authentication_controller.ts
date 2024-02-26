@@ -2,7 +2,7 @@ import type { HttpContext } from '@adonisjs/core/http'
 import mail from '@adonisjs/mail/services/main'
 import User from '../models/user.ts'
 import { createUserValidator } from '#validators/user_validator'
-import hash from '@adonisjs/core/services/hash'
+// import hash from '@adonisjs/core/services/hash'
 
 export default class AuthenticationController {
   /**
@@ -48,7 +48,7 @@ export default class AuthenticationController {
   /**
    * Login
    */
-  async login({ request, auth, response }: HttpContext) {
+  async login({ request, response }: HttpContext) {
     try {
       const { email, password } = request.only(['email', 'password'])
       // authenticate
@@ -64,8 +64,8 @@ export default class AuthenticationController {
             id: user.id,
             email: user.email,
             role: user.role,
-            fullName: user.fullName,
-            nationalID: user.nationalID,
+            fullName: user.full_name,
+            nationalID: user.national_id,
           },
           token: token.value!.release(),
         },

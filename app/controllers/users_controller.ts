@@ -1,5 +1,5 @@
 import type { HttpContext } from '@adonisjs/core/http'
-import mail from '@adonisjs/mail/services/main'
+// import mail from '@adonisjs/mail/services/main'
 import User from '../models/user.ts'
 import { updateUserValidator } from '#validators/user_validator'
 
