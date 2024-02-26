@@ -70,7 +70,7 @@ export default class UsersController {
       return response.json({
         success: false,
         message: 'Error updating user:',
-        data: error.message || 'Unknown error',
+        data: error,
       })
     }
   }

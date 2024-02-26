@@ -9,6 +9,7 @@
 
 import router from '@adonisjs/core/services/router'
 import { middleware } from '#start/kernel'
+const CasesController = () => import('#controllers/cases_controller')
 const UsersController = () => import('#controllers/users_controller')
 const AuthenticationController = () => import('#controllers/authentication_controller')
 
@@ -55,10 +56,24 @@ router
         router.delete('/:id', [UsersController, 'destroy'])
       })
       .prefix('users')
+    /**
+     * ============================================
+     *  Cases
+     * ============================================
+     */
+    router
+      .group(() => {
+        router.get('', [CasesController, 'index'])
+        router.post('', [CasesController, 'create'])
+        router.get('/:id', [CasesController, 'show'])
+        router.put('/:id', [CasesController, 'update'])
+        router.delete('/:id', [CasesController, 'destroy'])
+      })
+      .prefix('cases')
   })
   .prefix('/api/v1')
-  .use(
-    middleware.auth({
-      guards: ['api'],
-    })
-  )
+// .use(
+//   middleware.auth({
+//     guards: ['api'],
+//   })
+// )
