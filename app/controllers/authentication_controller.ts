@@ -2,6 +2,7 @@ import type { HttpContext } from '@adonisjs/core/http'
 import mail from '@adonisjs/mail/services/main'
 import User from '../models/user.ts'
 import { createUserValidator } from '#validators/user_validator'
+import hash from '@adonisjs/core/services/hash'
 
 export default class AuthenticationController {
   /**
@@ -51,12 +52,23 @@ export default class AuthenticationController {
     try {
       const { email, password } = request.only(['email', 'password'])
       const user = await User.verifyCredentials(email, password)
-      const data = await auth.use('web').login(user)
+      // authenticate
+      // await auth.use('api').login(user)
+      // const user1 = await auth.authenticate()
+      // const user = await auth.authenticateUsing('api')
+
+      // assign token
+      const token = await User.accessTokens.create(user)
+      console.log('token', token)
+      // console.log('user1', user1)
 
       return response.json({
         success: true,
         message: 'User logged in successfully',
-        data: data,
+        data: {
+          user,
+          token,
+        },
       })
     } catch (error) {
       return response.json({

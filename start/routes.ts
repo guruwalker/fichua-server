@@ -57,4 +57,10 @@ router
       .prefix('users')
   })
   .prefix('/api/v1')
-  .use(middleware.auth({ guards: ['web'] }))
+  .use(
+    middleware.auth({
+      guards: ['api'],
+    })
+  )
+// .use(middleware.auth({ guards: ['api'] }))
+// .use(middleware.auth())
