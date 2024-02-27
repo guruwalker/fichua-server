@@ -10,7 +10,7 @@ export default class Cases extends BaseModel {
   declare case_uuid: string | number
 
   @column({ serializeAs: 'reported_by' })
-  declare reported_by: number
+  declare reported_by: string | number
 
   @column({ serializeAs: 'crime_type' })
   declare crime_type: string
@@ -43,6 +43,10 @@ export default class Cases extends BaseModel {
   declare updated_at: DateTime | null
 
   // Reported by relation
-  @belongsTo(() => User)
-  declare user: BelongsTo<typeof User>
+  @belongsTo(() => User, { foreignKey: 'reported_by' })
+  declare reporter: BelongsTo<typeof User>
+
+  // Officer assigned to the case
+  @belongsTo(() => User, { foreignKey: 'assigned_officer' })
+  declare assigned: BelongsTo<typeof User>
 }

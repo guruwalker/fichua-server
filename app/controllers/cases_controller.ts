@@ -64,7 +64,12 @@ export default class CasesController {
    */
   async show({ params, response }: HttpContext) {
     try {
-      const cases = await Cases.find(params.id)
+      // const cases = await Cases.find(params.id)
+      const cases = await Cases.query()
+        .where('id', params.id)
+        .preload('reporter')
+        .preload('assigned')
+        .first()
       return response.json({
         success: true,
         message: 'Case fetched successfully',
