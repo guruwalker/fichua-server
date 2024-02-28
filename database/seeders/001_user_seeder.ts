@@ -73,7 +73,7 @@ export default class UserSeeder extends BaseSeeder {
         email: 'scarlett@example.com',
         password: 'scarlettpassword',
         phone_number: '888774476666',
-        role: 'user',
+        role: 'officer',
         national_id: '32323245378',
       },
       {
@@ -81,7 +81,7 @@ export default class UserSeeder extends BaseSeeder {
         email: 'ryan@example.com',
         password: 'ryanpassword',
         phone_number: '77764343665555',
-        role: 'user',
+        role: 'officer',
         national_id: '7777434332777777',
       },
       {
@@ -89,7 +89,7 @@ export default class UserSeeder extends BaseSeeder {
         email: 'angelina@example.com',
         password: 'angelinapassword',
         phone_number: '66643435554444',
-        role: 'user',
+        role: 'officer',
         national_id: '66666322266666',
       },
       {
@@ -97,7 +97,7 @@ export default class UserSeeder extends BaseSeeder {
         email: 'brad@example.com',
         password: 'bradpassword',
         phone_number: '555433443333',
-        role: 'user',
+        role: 'officer',
         national_id: '5555521555551',
       },
       {
@@ -121,7 +121,7 @@ export default class UserSeeder extends BaseSeeder {
         email: 'megan@example.com',
         password: 'meganpassword',
         phone_number: '2221110000',
-        role: 'user',
+        role: 'officer',
         national_id: '2222222222',
       },
       {
@@ -129,7 +129,7 @@ export default class UserSeeder extends BaseSeeder {
         email: 'will@example.com',
         password: 'willpassword',
         phone_number: '1110009999',
-        role: 'user',
+        role: 'officer',
         national_id: '1111111111',
       },
       {
@@ -137,7 +137,7 @@ export default class UserSeeder extends BaseSeeder {
         email: 'leo@example.com',
         password: 'leopassword',
         phone_number: '0009998888',
-        role: 'user',
+        role: 'officer',
         national_id: '0000000000',
       },
       {
@@ -145,7 +145,7 @@ export default class UserSeeder extends BaseSeeder {
         email: 'jenniferaniston@example.com',
         password: 'jenniferanistonpassword',
         phone_number: '9998887777',
-        role: 'user',
+        role: 'officer',
         national_id: '9999999999',
       },
       {
