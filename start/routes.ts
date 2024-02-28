@@ -11,6 +11,7 @@ import router from '@adonisjs/core/services/router'
 import { middleware } from '#start/kernel'
 const CasesController = () => import('#controllers/cases_controller')
 const UsersController = () => import('#controllers/users_controller')
+const PagesController = () => import('#controllers/pages_controller')
 const AuthenticationController = () => import('#controllers/authentication_controller')
 
 router.get('/', ({ response }) => {
@@ -70,6 +71,19 @@ router
         router.delete('/:id', [CasesController, 'destroy'])
       })
       .prefix('cases')
+    /**
+     * ============================================
+     *  Pages routes
+     * ============================================
+     */
+    router
+      .group(() => {
+        router.get('/profile/:id', [PagesController, 'profile'])
+        router.get('/updates', [PagesController, 'updates'])
+        router.get('/overview', [PagesController, 'overview'])
+        router.get('/analytics', [PagesController, 'analytics'])
+      })
+      .prefix('pages')
   })
   .prefix('/api/v1')
 // .use(

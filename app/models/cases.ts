@@ -28,7 +28,10 @@ export default class Cases extends BaseModel {
   declare assigned_officer: number
 
   @column()
-  declare attachments: string
+  declare is_closed: boolean
+
+  @column({ serializeAs: 'closed_by' })
+  declare closed_by: number
 
   @column()
   declare priority: string
@@ -49,4 +52,8 @@ export default class Cases extends BaseModel {
   // Officer assigned to the case
   @belongsTo(() => User, { foreignKey: 'assigned_officer' })
   declare assigned: BelongsTo<typeof User>
+
+  // Officer assigned to the case
+  @belongsTo(() => User, { foreignKey: 'closed_by' })
+  declare closed: BelongsTo<typeof User>
 }
