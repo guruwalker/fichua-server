@@ -8,13 +8,16 @@ export default class CasesController {
    * Get all cases
    * *
    */
-  async index({ response }: HttpContext) {
+  async index({ response, request }: HttpContext) {
     try {
+      const page = request.input('page', 1)
+      const limit = 10
       const cases = await Cases.query()
         .select('*')
         .from('cases')
         .preload('reporter')
         .preload('assigned')
+        .paginate(page, limit)
 
       return response.json({
         success: true,

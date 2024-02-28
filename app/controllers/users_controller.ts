@@ -9,9 +9,11 @@ export default class UsersController {
    * Get all users
    * *
    */
-  async index({ response }: HttpContext) {
+  async index({ response, request }: HttpContext) {
     try {
-      const user = await User.query().select('*').from('users')
+      const page = request.input('page', 1)
+      const limit = 10
+      const user = await User.query().select('*').from('users').paginate(page, limit)
 
       return response.json({
         success: true,
