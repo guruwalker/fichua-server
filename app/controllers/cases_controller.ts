@@ -10,7 +10,11 @@ export default class CasesController {
    */
   async index({ response }: HttpContext) {
     try {
-      const cases = await Cases.query().select('*').from('cases')
+      const cases = await Cases.query()
+        .select('*')
+        .from('cases')
+        .preload('reporter')
+        .preload('assigned')
 
       return response.json({
         success: true,
