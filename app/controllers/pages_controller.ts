@@ -96,27 +96,82 @@ export default class PagesController {
    */
   async analytics({ response }: HttpContext) {
     try {
-      // Query to get the number of closed cases for each officer
-      const allClosedCases = await Cases.query().select('*').from('cases').where('is_closed', true)
-      const closedCasesByOfficer: Record<number, number> = allClosedCases.reduce(
-        (acc: Record<number, number>, item: any) => {
-          const officerId: number = item.closed_by
-          acc[officerId] = acc[officerId] ? acc[officerId] + 1 : 1
-          return acc
-        },
-        {}
-      )
-      // Construct data for the bar chart
-      const barChartData = Object.keys(closedCasesByOfficer).map((officerId: string) => ({
-        officer_id: Number.parseInt(officerId),
-        number_of_closed_cases: closedCasesByOfficer[Number.parseInt(officerId)],
+      // Horizontal bar chart
+      const allClosedCases = await Cases.query()
+        .select('*')
+        .from('cases')
+        .where('is_closed', true)
+        .preload('assigned')
+
+      // Initialize an object to store closed cases by officer ID
+      const closedCasesByOfficer: Record<
+        number,
+        { number_of_closed_cases: number; officer_details: any }
+      > = {}
+
+      // Iterate over closed cases to populate closedCasesByOfficer
+      allClosedCases.forEach((item) => {
+        const officerId: number = item.closed_by
+        if (!closedCasesByOfficer[officerId]) {
+          closedCasesByOfficer[officerId] = {
+            number_of_closed_cases: 0,
+            officer_details: item.assigned, // Include assigned officer details
+          }
+        }
+        closedCasesByOfficer[officerId].number_of_closed_cases++
+      })
+
+      // Convert the closedCasesByOfficer object to barChartData array
+      const barChartData = Object.entries(closedCasesByOfficer).map(([officerId, data]) => ({
+        officer_id: Number(officerId),
+        number_of_closed_cases: data.number_of_closed_cases,
+        officer_details: data.officer_details,
       }))
-      // const officers = await User.query().select('*').from('users').where('role', 'officer')
-      // const regularUsers = await User.query().select('*').from('users').where('role', 'user')
-      // const numberOfCases = await Cases.query().select('*').from('cases')
-      // const numberOfUsers = await Cases.query().select('*').from('users')
+
+      // Pie chart
       const closedCases = await Cases.query().where('is_closed', true)
       const openCases = await Cases.query().where('is_closed', false)
+
+      // Monthly cases
+      const cases = await Cases.query().select('created_at')
+      const caseRows = cases.map((row) => row.created_at)
+
+      const months = [
+        'January',
+        'February',
+        'March',
+        'April',
+        'May',
+        'June',
+        'July',
+        'August',
+        'September',
+        'October',
+        'November',
+        'December',
+      ]
+      const finalResult = {
+        January: 0,
+        February: 0,
+        March: 0,
+        April: 0,
+        May: 0,
+        June: 0,
+        July: 0,
+        August: 0,
+        September: 0,
+        October: 0,
+        November: 0,
+        December: 0,
+      }
+
+      caseRows.forEach((createdAt) => {
+        const monthNumber = new Date(createdAt).getMonth()
+        const monthName = months[monthNumber]
+        finalResult[monthName]++ // Increment the corresponding month value
+      })
+
+      // console.log(finalResult)
 
       return response.json({
         success: true,
@@ -126,7 +181,8 @@ export default class PagesController {
             open_cases: openCases.length,
             closed_cases: closedCases.length,
           },
-          bar_chart: barChartData,
+          horizontal_bar_chart: barChartData,
+          bar_chart: finalResult,
         },
       })
     } catch (error) {
