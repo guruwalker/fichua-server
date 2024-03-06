@@ -5,6 +5,38 @@ export default class UserSeeder extends BaseSeeder {
   async run() {
     const userData = [
       {
+        full_name: 'The Super Admin',
+        email: 'admin@fichua.com',
+        password: 'password',
+        phone_number: '123456789022',
+        role: 'admin',
+        national_id: '123456789011',
+      },
+      {
+        full_name: 'The Officer',
+        email: 'officer@fichua.com',
+        password: 'password',
+        phone_number: '987654321330',
+        role: 'officer',
+        national_id: '098765444321',
+      },
+      {
+        full_name: 'The User',
+        email: 'user@gmail.com',
+        password: 'password',
+        phone_number: '555155234567',
+        role: 'officer',
+        national_id: '5555536633255555',
+      },
+      {
+        full_name: 'Innocent Maina',
+        email: 'innocentwahome@gmail.com',
+        password: 'password',
+        phone_number: '225155234567',
+        role: 'admin',
+        national_id: '533255555',
+      },
+      {
         full_name: 'John Doe',
         email: 'john@example.com',
         password: 'password123',
