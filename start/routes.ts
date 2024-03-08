@@ -9,16 +9,32 @@
 
 import router from '@adonisjs/core/services/router'
 import { middleware } from '#start/kernel'
+
+// Dashboard
 const CasesController = () => import('#controllers/cases_controller')
 const UsersController = () => import('#controllers/users_controller')
 const PagesController = () => import('#controllers/pages_controller')
 const AuthenticationController = () => import('#controllers/authentication_controller')
+
+// USSD
+// const AppController = () => import('#controllers/ussd/app_controller')
+import AppController from '#controllers/ussd/app_controller'
 
 router.get('/', ({ response }) => {
   return response.status(200).json({
     success: true,
     message: 'Fichua API running 🚀',
   })
+})
+
+/**
+ * ============================================
+ *  USSD route
+ * ============================================
+ */
+
+router.post('/ussd', ({ request, response }) => {
+  AppController(request, response)
 })
 
 /**
