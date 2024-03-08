@@ -5,12 +5,18 @@ import vine from '@vinejs/vine'
  */
 export const createCaseValidator = vine.compile(
   vine.object({
-    full_name: vine.string().trim().minLength(6),
-    email: vine.string().trim().email(),
-    password: vine.string().trim().minLength(6),
-    phoneNumber: vine.string().trim().minLength(7),
-    role: vine.string().trim().minLength(3),
-    nationalID: vine.string().trim().minLength(7),
+    case_uuid: vine.string().trim().minLength(6),
+    reported_by: vine.number().optional(),
+    is_anonymous: vine.boolean().optional(),
+    crime_type: vine.string().trim().minLength(3),
+    statement: vine.string().trim().minLength(10),
+    location: vine.string().trim().minLength(3),
+    status: vine.string().trim().minLength(3),
+    assigned_officer: vine.number().optional(),
+    is_closed: vine.boolean().optional(),
+    closed_by: vine.number().optional(),
+    priority: vine.string().trim().minLength(3).optional(),
+    date_closed: vine.string().trim().minLength(3).optional(),
   })
 )
 
@@ -19,10 +25,17 @@ export const createCaseValidator = vine.compile(
  */
 export const updateCaseValidator = vine.compile(
   vine.object({
-    full_name: vine.string().trim().minLength(6),
-    email: vine.string().trim().email(),
-    phoneNumber: vine.string().trim().minLength(7),
-    role: vine.string().trim().minLength(3),
-    nationalID: vine.string().trim().minLength(7),
+    case_uuid: vine.string().trim().minLength(6),
+    reported_by: vine.number().optional(),
+    is_anonymous: vine.boolean().optional(),
+    crime_type: vine.string().trim().minLength(3),
+    statement: vine.string().trim().minLength(10),
+    location: vine.string().trim().minLength(3),
+    status: vine.string().trim().minLength(3),
+    assigned_officer: vine.number().optional(),
+    is_closed: vine.boolean().optional(),
+    closed_by: vine.number().optional(),
+    priority: vine.string().trim().minLength(3).optional(),
+    date_closed: vine.string().trim().minLength(3).optional(),
   })
 )

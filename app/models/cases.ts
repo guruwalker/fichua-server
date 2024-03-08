@@ -12,6 +12,9 @@ export default class Cases extends BaseModel {
   @column({ serializeAs: 'reported_by' })
   declare reported_by: string | number
 
+  @column({ serializeAs: 'is_anonymous' })
+  declare is_anonymous: boolean
+
   @column({ serializeAs: 'crime_type' })
   declare crime_type: string
 
@@ -27,7 +30,8 @@ export default class Cases extends BaseModel {
   @column({ serializeAs: 'assigned_officer' })
   declare assigned_officer: number
 
-  @column()
+
+  @column({ serializeAs: 'is_closed' })
   declare is_closed: boolean
 
   @column({ serializeAs: 'closed_by' })

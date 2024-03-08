@@ -17,6 +17,7 @@ export default class CaseSeeder extends BaseSeeder {
         closed_by: 1,
         priority: 'high',
         date_closed: '',
+        is_anonymous: false,
       },
       {
         case_uuid: 'waeflkejwlfkew2',
@@ -31,6 +32,7 @@ export default class CaseSeeder extends BaseSeeder {
         closed_by: 2,
         priority: 'medium',
         date_closed: '',
+        is_anonymous: false,
       },
       {
         case_uuid: 'waeflkejwlfkew3',
@@ -45,6 +47,7 @@ export default class CaseSeeder extends BaseSeeder {
         closed_by: 3,
         priority: 'high',
         date_closed: '',
+        is_anonymous: false,
       },
       {
         case_uuid: 'waeflkejwlfkew1',
@@ -59,6 +62,7 @@ export default class CaseSeeder extends BaseSeeder {
         closed_by: 4,
         priority: 'high',
         date_closed: '',
+        is_anonymous: false,
       },
       {
         case_uuid: 'waeflkejwlfkew2',
@@ -73,6 +77,7 @@ export default class CaseSeeder extends BaseSeeder {
         closed_by: 5,
         priority: 'medium',
         date_closed: '',
+        is_anonymous: false,
       },
       {
         case_uuid: 'waeflkejwlfkew3',
@@ -87,6 +92,7 @@ export default class CaseSeeder extends BaseSeeder {
         closed_by: 6,
         priority: 'high',
         date_closed: '',
+        is_anonymous: false,
       },
       {
         case_uuid: 'waeflkejwlfkew4',
@@ -101,6 +107,7 @@ export default class CaseSeeder extends BaseSeeder {
         closed_by: 7,
         priority: 'high',
         date_closed: '',
+        is_anonymous: false,
       },
       {
         case_uuid: 'waeflkejwlfkew5',
@@ -115,6 +122,7 @@ export default class CaseSeeder extends BaseSeeder {
         closed_by: 8,
         priority: 'medium',
         date_closed: '',
+        is_anonymous: false,
       },
       {
         case_uuid: 'waeflkejwlfkew6',
@@ -129,6 +137,7 @@ export default class CaseSeeder extends BaseSeeder {
         closed_by: 1,
         priority: 'high',
         date_closed: '',
+        is_anonymous: false,
       },
       {
         case_uuid: 'waeflkejwlfkew7',
@@ -143,6 +152,7 @@ export default class CaseSeeder extends BaseSeeder {
         closed_by: 1,
         priority: 'medium',
         date_closed: '',
+        is_anonymous: false,
       },
     ]
     await Case.createMany(cases)
