@@ -17,7 +17,7 @@ export default class CasesController {
         .from('cases')
         .preload('reporter')
         .preload('assigned')
-        .paginate(page, limit)
+      // .paginate(page, limit)
 
       return response.json({
         success: true,

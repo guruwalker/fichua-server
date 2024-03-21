@@ -13,7 +13,8 @@ export default class UsersController {
     try {
       const page = request.input('page', 1)
       const limit = 10
-      const user = await User.query().select('*').from('users').paginate(page, limit)
+      const user = await User.query().select('*').from('users')
+      // .paginate(page, limit)
 
       return response.json({
         success: true,

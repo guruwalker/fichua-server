@@ -8,7 +8,7 @@ const dbConfig = defineConfig({
       connection: {
         host: 'localhost',
         port: 3306,
-        user: 'wahome',
+        user: 'root',
         password: 'Wahome@2020',
         database: 'fichua',
       },
