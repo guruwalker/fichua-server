@@ -93,6 +93,40 @@ export default class CasesController {
 
   /**
    * *
+   * Get cases assigned to officer
+   * *
+   */
+  async singleOfficerCases({ params, response }: HttpContext) {
+    try {
+      const cases = await Cases.query()
+        .where('assigned_officer', params.id)
+        .preload('reporter')
+        .preload('assigned')
+
+      if (!cases) {
+        return response.status(404).json({
+          success: false,
+          message: 'Case not found',
+          data: null,
+        })
+      }
+
+      return response.json({
+        success: true,
+        message: 'Case fetched successfully',
+        data: cases,
+      })
+    } catch (error) {
+      return response.status(500).json({
+        success: false,
+        message: error.message,
+        data: error,
+      })
+    }
+  }
+
+  /**
+   * *
    * Update single case
    * *
    */

@@ -70,6 +70,7 @@ router
     router
       .group(() => {
         router.get('', [UsersController, 'index'])
+        router.get('/officers', [UsersController, 'getAllOfficers'])
         router.get('/:id', [UsersController, 'show'])
         router.put('/:id', [UsersController, 'update'])
         router.delete('/:id', [UsersController, 'destroy'])
@@ -85,6 +86,7 @@ router
         router.get('', [CasesController, 'index'])
         router.post('', [CasesController, 'create'])
         router.get('/:id', [CasesController, 'show'])
+        router.get('/officer/:id', [CasesController, 'singleOfficerCases'])
         router.put('/:id', [CasesController, 'update'])
         router.delete('/:id', [CasesController, 'destroy'])
       })

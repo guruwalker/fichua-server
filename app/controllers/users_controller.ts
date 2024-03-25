@@ -32,6 +32,33 @@ export default class UsersController {
 
   /**
    * *
+   * Get all officers
+   * *
+   */
+  /**
+   * Get all users with role 'officer'
+   */
+  async getAllOfficers({ response, request }: HttpContext) {
+    try {
+      // Fetch users where role is 'officer'
+      const users = await User.query().select('*').from('users').where('role', 'officer')
+
+      return response.json({
+        success: true,
+        message: 'Offierces fetched successfully',
+        data: users,
+      })
+    } catch (error) {
+      return response.json({
+        success: false,
+        message: error.message,
+        data: error,
+      })
+    }
+  }
+
+  /**
+   * *
    * Get single user
    * *
    */
