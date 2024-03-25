@@ -4,7 +4,7 @@ import mail from '@adonisjs/mail/services/main'
 import User from '../models/user.ts'
 import { createUserValidator } from '#validators/user_validator'
 
-import { forgotPasswordValidator, resetPasswordValidator } from '#validators/auth_validator'
+// import { forgotPasswordValidator, resetPasswordValidator } from '#validators/auth_validator'
 // import hash from '@adonisjs/core/services/hash'
 
 export default class AuthenticationController {
@@ -16,15 +16,15 @@ export default class AuthenticationController {
       const payload = await request.validateUsing(createUserValidator)
       const userData = await User.create(payload)
 
-      const emailResponse = await mail.send((message) => {
-        message
-          .to(payload.email)
-          .from('guruthewalker@gmail.com')
-          .subject('Verify your email address')
-          .htmlView('emails/register_verify_email', { payload })
-      })
+      // const emailResponse = await mail.send((message) => {
+      //   message
+      //     .to(payload.email)
+      //     .from('guruthewalker@gmail.com')
+      //     .subject('Verify your email address')
+      //     .htmlView('emails/register_verify_email', { payload })
+      // })
 
-      console.log('emailResponse', emailResponse)
+      // console.log('emailResponse', emailResponse)
 
       return response.json({
         success: true,
